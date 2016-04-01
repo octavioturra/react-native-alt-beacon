@@ -1,0 +1,5 @@
+rootProject.name = 'example'
+
+include ':app'
+include ':RNABeacon'
+project(':RNABeacon').projectDir = file('../node_modules/react-native-alt-beacon/android')

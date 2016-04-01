@@ -1,5 +1,5 @@
 /**
- * @providesModule RNABeacon
+ * @providesModule RNABeacon (DEPRECATED)
  */
 
 'use strict';

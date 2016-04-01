@@ -1,0 +1,28 @@
+{
+  "name": "react-native-alt-beacon",
+  "version": "1.0.2",
+  "description": "A lib to work with AltBeacon and React Native.",
+  "main": "RNABeacon.android.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/octavioturra/react-native-alt-beacon.git"
+  },
+  "keywords": [
+    "react-native",
+    "beacon",
+    "alt",
+    "beacon"
+  ],
+  "author": "Octavio Turra <octavio.turra@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/octavioturra/react-native-alt-beacon/issues"
+  },
+  "homepage": "https://github.com/octavioturra/react-native-alt-beacon#readme"
+}
