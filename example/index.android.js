@@ -6,26 +6,38 @@
 import React, {
   AppRegistry,
   Component,
+  Navigator,
   StyleSheet,
   Text,
+  TouchableHighlight,
   View
 } from 'react-native';
 
-import { Monitoring, Ranging } from 'src';
+import Monitoring from './src/Monitoring';
+import Ranging from './src/Ranging';
+import Button from './src/Button';
 
-class example extends Component {
+class Example extends Component {
+  renderScene(route, navigator){
+    switch(route.name) {
+      case 'monitoring': return <Monitoring navigator={navigator}/>;
+      case 'ranging': return <Ranging navigator={navigator}/>;
+    }
+  }
+  navigate(page){
+    return ()=> this.refs.navigation.push({name: page});
+  }
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
+        <Navigator ref="navigation"
+          style={styles.navigator}
+          initialRoute={{name: 'monitoring', index:0}}
+          renderScene={this.renderScene.bind(this)}/>
+        <View style={styles.bottomBar}>
+          <Button onPress={this.navigate('monitoring').bind(this)} label="Monitoring"/>
+          <Button onPress={this.navigate('ranging').bind(this)} label="Ranging"/>
+        </View>
       </View>
     );
   }
@@ -38,6 +50,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
+  navigator: {
+    flex:1,
+    backgroundColor: '#ffffff',
+    alignSelf: 'stretch'
+  },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
@@ -48,6 +65,12 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  bottomBar: {
+    justifyContent: 'space-around',
+    alignItems: 'stretch',
+    flexDirection: 'row'
+  }
 });
 
-AppRegistry.registerComponent('example', () => example);
+
+AppRegistry.registerComponent('example', () => Example);

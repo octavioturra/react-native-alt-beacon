@@ -1,6 +1,6 @@
 {
   "name": "react-native-alt-beacon",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A lib to work with AltBeacon and React Native.",
   "main": "RNABeacon.android.js",
   "directories": {
