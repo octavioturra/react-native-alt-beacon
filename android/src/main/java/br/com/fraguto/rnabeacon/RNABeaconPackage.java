@@ -13,10 +13,6 @@ import java.util.List;
  * Created by octavioturra on 9/30/15.
  */
 public class RNABeaconPackage  implements ReactPackage {
-	private android.content.Context applicationContext = null;
-	public RNABeaconPackage(android.content.Context applicationContext){
-		this.applicationContext = applicationContext;
-	}
 
 	@Override
 	public List<NativeModule> createNativeModules(
@@ -31,7 +27,7 @@ public class RNABeaconPackage  implements ReactPackage {
 	@Override
 	public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
 		return new ArrayList<>();
-	}
+	}private android.content.Context applicationContext = null;
 
 	@Override
 	public List<Class<? extends JavaScriptModule>> createJSModules() {

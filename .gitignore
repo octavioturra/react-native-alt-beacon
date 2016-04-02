@@ -10,12 +10,8 @@ tmp
 node_modules
 bower_components
 
-.gradle
+build/
 .idea
-android/build
-gradle
 gradlew
 gradlew.bat
 local.properties
-
-/build

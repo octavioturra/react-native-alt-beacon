@@ -2,15 +2,15 @@ import React, {
   Component,
   StyleSheet,
   Text,
-  View,
-  PropTypes,
+  View
 } from 'react-native';
 
 import Button from './Button';
 
-export default class Ranging extends Component {
+export default class Transmit extends Component {
   static PropTypes = {
-    beacon = PropTypes.object.isRequired
+    beacon : PropTypes.object.isRequired,
+    uuid : PropTypes.string.isRequired
   };
 
   constructor(props) {
@@ -20,11 +20,11 @@ export default class Ranging extends Component {
     };
   }
 
-  _start(success) {
-    setTimeout(()=>success(), 0);
+  _start(success, error) {
+    this.props.beacon.startTransmitting(this.props.uuid, {}, success, error)
   }
   _stop(success) {
-
+    this.props.beacon.unbind()
   }
 
   toggle() {
@@ -42,7 +42,7 @@ export default class Ranging extends Component {
   render() {
     return <View style={styles.container}>
       <Button label={`${(this.state.on?'Stop':'Start')}`} onPress={this.toggle.bind(this)}/>
-      <Text>Ranging</Text>
+      <Text>Transmit</Text>
     </View>;
   }
 }

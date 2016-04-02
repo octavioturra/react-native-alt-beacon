@@ -15,6 +15,7 @@ import React, {
 
 import Monitoring from './src/Monitoring';
 import Ranging from './src/Ranging';
+import Transmit from './src/Transmit';
 import Button from './src/Button';
 
 class Example extends Component {
@@ -22,6 +23,7 @@ class Example extends Component {
     switch(route.name) {
       case 'monitoring': return <Monitoring navigator={navigator}/>;
       case 'ranging': return <Ranging navigator={navigator}/>;
+      case 'transmit': return <Transmit navigator={navigator}/>;
     }
   }
   navigate(page){
@@ -33,8 +35,9 @@ class Example extends Component {
         <Navigator ref="navigation"
           style={styles.navigator}
           initialRoute={{name: 'monitoring', index:0}}
-          renderScene={this.renderScene.bind(this)}/>
+        renderScene={this.renderScene.bind(this)}/>
         <View style={styles.bottomBar}>
+          <Button onPress={this.navigate('transmit').bind(this)} label="Transmit"/>
           <Button onPress={this.navigate('monitoring').bind(this)} label="Monitoring"/>
           <Button onPress={this.navigate('ranging').bind(this)} label="Ranging"/>
         </View>
