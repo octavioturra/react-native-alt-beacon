@@ -1,5 +1,6 @@
 import React, {
   Component,
+  PropTypes,
   StyleSheet,
   Text,
   View
@@ -9,7 +10,7 @@ import Button from './Button';
 
 export default class Monitoring extends Component {
   static PropTypes = {
-    beacon = PropTypes.object.isRequired
+    beacon : PropTypes.object.isRequired
   };
 
   constructor(props) {

@@ -10,7 +10,7 @@ import Button from './Button';
 
 export default class Ranging extends Component {
   static PropTypes = {
-    beacon = PropTypes.object.isRequired
+    beacon : PropTypes.object.isRequired
   };
 
   constructor(props) {

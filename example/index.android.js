@@ -17,18 +17,35 @@ import Monitoring from './src/Monitoring';
 import Ranging from './src/Ranging';
 import Transmit from './src/Transmit';
 import Button from './src/Button';
+import Beacon from './src/Beacon';
 
 class Example extends Component {
-  renderScene(route, navigator){
+  constructor(props) {
+    super(props);
+    this.state = {
+      uuid: '123456',
+      beacon: new Beacon,
+      pageName: ''
+    };
+  }
+
+  renderScene(route, navigator) {
     switch(route.name) {
-      case 'monitoring': return <Monitoring navigator={navigator}/>;
-      case 'ranging': return <Ranging navigator={navigator}/>;
-      case 'transmit': return <Transmit navigator={navigator}/>;
+      case 'monitoring': return <Monitoring navigator={navigator} beacon={this.state.beacon} uuid={this.state.uuid}/>;
+      case 'ranging': return <Ranging navigator={navigator} beacon={this.state.beacon} uuid={this.state.uuid}/>;
+      case 'transmit': return <Transmit navigator={navigator} beacon={this.state.beacon} uuid={this.state.uuid}/>;
     }
   }
-  navigate(page){
-    return ()=> this.refs.navigation.push({name: page});
+
+  navigate(pageName) {
+    if(this.state.pageName != pageName){
+      return this.setState({
+        ...this.state,
+        pageName: pageName
+      }, ()=> this.refs.navigation.push({name: pageName}));
+    }
   }
+
   render() {
     return (
       <View style={styles.container}>

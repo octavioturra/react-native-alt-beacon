@@ -13,7 +13,8 @@ export default class Monitoring extends Component {
   };
   render() {
     return <TouchableHighlight style={styles.container}
-      onPress={this.props.onPress}>
+      onPress={this.props.onPress}
+      underlayColor="#bbb">
       <Text>{this.props.label}</Text>
     </TouchableHighlight>;
   }
@@ -27,6 +28,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#ccc',
     padding: 10,
     margin:5,
-    borderRadius: 5
+    borderWidth: .5,
+    borderColor: '#bbb',
+    elevation: 2
   },
 });
