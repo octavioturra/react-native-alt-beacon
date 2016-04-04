@@ -17,33 +17,68 @@ export default class Transmit extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      on: false
+      on: false,
+      error: null
     };
   }
 
-  _start(success, error) {
-    this.props.beacon.startTransmitting(this.props.uuid, {}, success, error)
-  }
-  _stop(success) {
-    this.props.beacon.unbind()
-  }
-
   toggle() {
+    const that = this;
+    function turnOn() {
+      that.setState({
+        ...that.state,
+        on: true,
+        error: null
+      });
+    }
+    function turnOff(){
+      that.setState({
+        ...that.state,
+        on: false,
+        error: null
+      });
+    }
+    function sendError(error) {
+      alert(JSON.stringify(error));
+      that.setState({
+        ...that.state,
+        error: that.props.beacon.errors[error]
+      });
+    }
+    function transmit() {
+      that.props.beacon
+        .transmit(that.props.uuid, {
+          major: "1",
+          minor: "2",
+          manufacturer: 0x0000,
+          data: [0]
+        })
+        .then(turnOn)
+        .catch(sendError)
+    }
+    function stop() {
+      that.props.beacon
+        .stopTransmitting()
+        .then(turnOff)
+        .catch(sendError);
+    }
+    function start() {
+      that.props.beacon
+        .checkTransmissionSupported()
+        .then(transmit)
+        .catch(sendError);
+    }
     if(!this.state.on) {
-      this._start(()=> this.setState({
-        on: true
-      }));
+      start();
     } else {
-      this._stop(()=> this.setState({
-        on: false
-      }));
+      stop()
     }
   }
 
   render() {
     return <View style={styles.container}>
-      <Button label={`${(this.state.on?'Stop':'Start')}`} onPress={this.toggle.bind(this)}/>
       <Text>Transmit</Text>
+      <Button label={this.state.on?'Stop':'Start'} onPress={this.toggle.bind(this)}/>
     </View>;
   }
 }

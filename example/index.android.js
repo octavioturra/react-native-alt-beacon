@@ -23,8 +23,8 @@ class Example extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      uuid: '123456',
-      beacon: new Beacon,
+      uuid: '2F234454-CF6D-4A0F-ADF2-F4911BA9FFA6',
+      beacon: new Beacon(),
       pageName: ''
     };
   }
@@ -38,12 +38,7 @@ class Example extends Component {
   }
 
   navigate(pageName) {
-    if(this.state.pageName != pageName){
-      return this.setState({
-        ...this.state,
-        pageName: pageName
-      }, ()=> this.refs.navigation.push({name: pageName}));
-    }
+    return ()=> (this.state.pageName!==pageName)?this.setState({...this.state, pageName}, this.refs.navigation.push({name: pageName})):null;
   }
 
   render() {
@@ -51,7 +46,7 @@ class Example extends Component {
       <View style={styles.container}>
         <Navigator ref="navigation"
           style={styles.navigator}
-          initialRoute={{name: 'monitoring', index:0}}
+          initialRoute={{name: 'transmit', index:0}}
         renderScene={this.renderScene.bind(this)}/>
         <View style={styles.bottomBar}>
           <Button onPress={this.navigate('transmit').bind(this)} label="Transmit"/>

@@ -78,6 +78,8 @@ public class RNABeacon extends ReactContextBaseJavaModule{
 		cb.invoke(result);
 	}
 
+	BeaconTransmitter beaconTransmitter = null;
+
 	@ReactMethod
 	public void startTransmitting(String uuid, ReadableMap params, final Callback onSuccess, final Callback onError){
 		String minor = params.isNull("minor")?"1":params.getString("minor");
@@ -102,7 +104,7 @@ public class RNABeacon extends ReactContextBaseJavaModule{
 				.build();
 		BeaconParser beaconParser = new BeaconParser()
 				.setBeaconLayout("m:2-3=beac,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25");
-		BeaconTransmitter beaconTransmitter = new BeaconTransmitter(context, beaconParser);
+		this.beaconTransmitter = new BeaconTransmitter(context, beaconParser);
 		beaconTransmitter.startAdvertising(beacon, new AdvertiseCallback() {
 
 			@Override
@@ -115,6 +117,12 @@ public class RNABeacon extends ReactContextBaseJavaModule{
 				onSuccess.invoke();
 			}
 		});
+	}
+
+	@ReactMethod
+	public void stopTransmitting(Callback cb){
+		this.beaconTransmitter.stopAdvertising();
+		cb.invoke();
 	}
 
 	private void sendEvent(ReactContext reactContext,
@@ -238,21 +246,36 @@ public class RNABeacon extends ReactContextBaseJavaModule{
 		}
 	};
 
-
-	@ReactMethod
-	public void startMonitoring(String uuid) {
-		this.uuid = uuid;
+	public void _startMonitoring(String monitoringUuid){
+		this.uuid = monitoringUuid;
 		beaconManager = BeaconManager.getInstanceForApplication(applicationContext);
 		beaconManager.bind(monitoringConsumer);
+	}
+	@ReactMethod
+	public void startMonitoring(String monitoringUuid) {
+		this._startMonitoring(monitoringUuid);
 		sendEvent(context, "startMonitoring", null);
 	}
-
 	@ReactMethod
-	public void startRanging(String rangingUuid) {
+	public void startMonitoringCallback(String monitoringUuid, Callback cb) {
+		this._startMonitoring(monitoringUuid);
+		cb.invoke();
+	}
+
+	public void _startRanging(String rangingUuid){
 		this.rangingUuid = rangingUuid;
 		beaconManager = BeaconManager.getInstanceForApplication(applicationContext);
 		beaconManager.bind(rangingConsumer);
+	}
+	@ReactMethod
+	public void startRanging(String rangingUuid) {
+		this._startRanging(rangingUuid);
 		sendEvent(context, "startRanging", null);
+	}
+	@ReactMethod
+	public void startRangingCallback(String rangingUuid, Callback cb) {
+		this._startRanging(rangingUuid);
+		cb.invoke();
 	}
 
 	@ReactMethod
