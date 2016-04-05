@@ -19,7 +19,7 @@ public class RNABeaconPackage  implements ReactPackage {
 			ReactApplicationContext reactContext) {
 		List<NativeModule> modules = new ArrayList<>();
 
-		modules.add(new RNABeacon(reactContext, this.applicationContext));
+		modules.add(new RNABeacon(reactContext));
 
 		return modules;
 	}

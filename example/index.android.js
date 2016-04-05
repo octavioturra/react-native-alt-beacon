@@ -17,14 +17,14 @@ import Monitoring from './src/Monitoring';
 import Ranging from './src/Ranging';
 import Transmit from './src/Transmit';
 import Button from './src/Button';
-import Beacon from './src/Beacon';
+import RNABeacon from 'react-native-alt-beacon';
 
 class Example extends Component {
   constructor(props) {
     super(props);
     this.state = {
       uuid: '2F234454-CF6D-4A0F-ADF2-F4911BA9FFA6',
-      beacon: new Beacon(),
+      beacon: new RNABeacon(),
       pageName: ''
     };
   }
@@ -46,7 +46,7 @@ class Example extends Component {
       <View style={styles.container}>
         <Navigator ref="navigation"
           style={styles.navigator}
-          initialRoute={{name: 'transmit', index:0}}
+          initialRoute={{name: 'ranging', index:0}}
         renderScene={this.renderScene.bind(this)}/>
         <View style={styles.bottomBar}>
           <Button onPress={this.navigate('transmit').bind(this)} label="Transmit"/>

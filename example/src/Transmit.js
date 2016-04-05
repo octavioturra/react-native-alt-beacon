@@ -45,9 +45,9 @@ export default class Transmit extends Component {
         error: that.props.beacon.errors[error]
       });
     }
-    function transmit() {
+    function startTransmitting() {
       that.props.beacon
-        .transmit(that.props.uuid, {
+        .startTransmitting(that.props.uuid, {
           major: "1",
           minor: "2",
           manufacturer: 0x0000,
@@ -65,7 +65,7 @@ export default class Transmit extends Component {
     function start() {
       that.props.beacon
         .checkTransmissionSupported()
-        .then(transmit)
+        .then(startTransmitting)
         .catch(sendError);
     }
     if(!this.state.on) {
