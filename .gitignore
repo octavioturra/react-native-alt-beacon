@@ -12,6 +12,3 @@ bower_components
 
 build/
 .idea
-gradlew
-gradlew.bat
-local.properties
